@@ -1,0 +1,49 @@
+""" dr version 0.1.2
+
+This program allows the user to roll a *number of dice* with a
+*set number of sides* and returns the result of each die roll,
+as well as the total of all dice rolled.
+
+Changelog:
+0.1.2 - added capability to input dice in "xdy" format
+"""
+
+import random
+
+class roll(object):
+    """ A die roll. The roll includes the following attributes:
+
+    - The number of dice to be rolled
+    - The number of sides on the die
+    """
+
+    def __init__(self, number, sides):
+        self.number = number
+        self.sides = sides
+
+    def rolldice(self, sides, number):
+        rolls = []
+        sides = self.sides
+        while number > 0:
+            rolls.append(random.randint(1,sides))
+            number -= 1
+        return rolls
+
+    def aggregate(self, rolls):
+        acc = 0
+        for roll in rolls:
+            acc += roll
+        return acc
+
+""" Main Loop. Accept input in xdy format and output individual rolls
+    and roll total """
+
+while True:
+    rawxdy = input("Roll: ")
+    number, sides = map(int, rawxdy.split('d'))
+    thisroll = roll(number, sides)
+    rolls = thisroll.rolldice(thisroll.sides, thisroll.number)
+    print(rolls)
+    print(thisroll.aggregate(rolls))
+
+
